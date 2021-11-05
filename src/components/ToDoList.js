@@ -14,7 +14,6 @@ return(
 <ListItem>
 <ListItemText>{todo.task}</ListItemText>
 </ListItem>
-
 <Divider />
 </React.Fragment>
 )) }

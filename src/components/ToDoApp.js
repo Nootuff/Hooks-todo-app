@@ -15,7 +15,7 @@ const initial = [
 ];
   const [todos, setTodos] = useState(initial); //The value of todos is set to the array in initial
 
-  const addTodo = newText => {
+  const addTodo = (newText) => {
 setTodos([...todos, {id: 4, task: newText, completed: false}]) //This function will overwrite and replace existing todos. 
 }   
 
@@ -32,7 +32,7 @@ elevation={0}
           <Typography color="inherit">Todo App With with hooks</Typography>
           </Toolbar>
         </AppBar>
-<ToDoForm />
+<ToDoForm addTodoFunc={addTodo}/>
 <ToDoList toDoData={todos} />
       </Paper>
     );

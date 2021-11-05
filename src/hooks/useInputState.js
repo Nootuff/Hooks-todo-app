@@ -3,11 +3,12 @@ export default initialValue => {
 
 const [value, setValue] = useState(initialValue);
 
+//Both of these functions use the const defined above. 
 const handleChange = event => {
 setValue(event.target.value);
 };
 
-const reset = () =>{
+const reset = () =>{ //Sets the value to "", empty. 
 setValue("");
 };
 
