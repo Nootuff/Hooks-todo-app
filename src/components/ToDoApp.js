@@ -14,6 +14,7 @@ function ToDoApp() {
     { id: 2, task: "task 2", completed: true },
     { id: 3, task: "task 3", completed: false }
   ];
+  
   const [todos, setTodos] = useState(initial); //The value of todos is set to the array in initial
 
   const addTodo = (newText) => {
