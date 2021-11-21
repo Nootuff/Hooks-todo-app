@@ -14,7 +14,7 @@ function ToDoApp() {
     { id: 2, task: "task 2", completed: true },
     { id: 3, task: "task 3", completed: false }
   ];
-  
+
   const [todos, setTodos] = useState(initial); //The value of todos is set to the array in initial
 
   const addTodo = (newText) => {
@@ -28,10 +28,17 @@ function ToDoApp() {
   }
 
   const toggleComplete = (todoId) => {
-    const updatedTodos = todos.map((todo) =>
+    const updatedTodos = todos.map((todo) => //maps over all the todos 
       todo.id === todoId ? { ...todo, completed: !todo.completed } : todo//Map over current todos, check if the todo.id of the todo the map is looking at is equal to the id that was passed in, if they match, set that todo to be the same with all the same data but its completed value to be the opposite of what it was, like a toggle. If the ids dont match, return the regular todo as it is. 
     );
     setTodos(updatedTodos); //Set todos to be the updated modified array created above. 
+  };
+
+  const editTodo = (todoId, newTask) => { //This function operates very similarly to above. 
+    const updatedTodos = todos.map((todo) => 
+      todo.id === todoId ? { ...todo, task: newTask } : todo //Ternary operator 
+    );
+    setTodos(updatedTodos);
   }
 
   return (
@@ -54,6 +61,7 @@ function ToDoApp() {
             toDoData={todos}
             removeTodoFunc={removeTodo}
             toggleCompleteFunc={toggleComplete}
+            editTodoFunc={editTodo}
           />
         </Grid>
       </Grid>

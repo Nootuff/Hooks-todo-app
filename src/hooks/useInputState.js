@@ -12,7 +12,7 @@ const reset = () =>{ //Sets the value to "", empty.
 setValue("");
 };
 
-return [value, handleChange, reset]; //Remember the order is important here, placeholders will symbolize these 3 functions in the components this is used in. 
+return [value, handleChange, reset]; //Note the order, it must be the same in every file you import this into 
 };
 
 

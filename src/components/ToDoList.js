@@ -20,6 +20,7 @@ function ToDoList(props) {
                             completed={todo.completed}
                             removeTodoFunc={props.removeTodoFunc} //Passes the removeTodo function received as a prop from to ToDoApp down once more to the ToDo component, this function is being passed down twice basically. 
                             toggleCompleteFunc={props.toggleCompleteFunc} //Juyst like above, passes toggleCompleteFunc from ToDoApp.
+                            editTodoFunc={props.editTodoFunc} 
                         />
                         <Divider />
                     </React.Fragment>
