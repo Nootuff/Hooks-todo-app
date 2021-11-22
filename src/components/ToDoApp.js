@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
@@ -9,13 +9,20 @@ import ToDoList from "./ToDoList";
 import { v4 as uuidv4 } from 'uuid';
 
 function ToDoApp() {
+  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]"); //Ternary operator, if there are todos present in localStorage then the value of this const is whatever they are, if not, then the value is an empty array. 
+
+  /*
   const initial = [
     { id: 1, task: "task 1", completed: false },
     { id: 2, task: "task 2", completed: true },
     { id: 3, task: "task 3", completed: false }
   ];
+*/
+  const [todos, setTodos] = useState(initialTodos); //The value of todos is set to the array in initial
 
-  const [todos, setTodos] = useState(initial); //The value of todos is set to the array in initial
+  useEffect(() => { //useEffect imported from react above in the first brackets. It runs any time a component renders meaning it will be saving the todos and keeping them up to date on localstorage. 
+window.localStorage.setItem("todos", JSON.stringify(todos)) //The value of todos is being turned from an object to a string and sent to localstorage. 
+  }, [todos]); //todos here means useEffect will only run when the todos value is updated?
 
   const addTodo = (newText) => {
     setTodos([...todos, { id: uuidv4(), task: newText, completed: false }]) //This function will overwrite and replace existing todos. 
@@ -35,7 +42,7 @@ function ToDoApp() {
   };
 
   const editTodo = (todoId, newTask) => { //This function operates very similarly to above. 
-    const updatedTodos = todos.map((todo) => 
+    const updatedTodos = todos.map((todo) =>
       todo.id === todoId ? { ...todo, task: newTask } : todo //Ternary operator 
     );
     setTodos(updatedTodos);

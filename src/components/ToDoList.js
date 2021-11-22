@@ -8,10 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 
 
 function ToDoList(props) {
+    if (props.toDoData.length){ //if toDoData has length meaning length of more than 0 meaning there are todos present in the array, render the paper with the list inside. Else if not render null down below. 
     return (
         <Paper>
             <List>
-                {props.toDoData.map(todo => (
+                {props.toDoData.map((todo, index) => (
                     <React.Fragment> {/*This is something called called a React fragment, it ends with </> below, it groups elements together but doesn't result in extra markup on the page. You apparently need to use if here for the Divider below to work for some reason. */}
                         <ToDo
                             id={todo.id}
@@ -22,12 +23,15 @@ function ToDoList(props) {
                             toggleCompleteFunc={props.toggleCompleteFunc} //Juyst like above, passes toggleCompleteFunc from ToDoApp.
                             editTodoFunc={props.editTodoFunc} 
                         />
-                        <Divider />
+                        {index < props.toDoData.length-1 ? <Divider /> : null /*Ternary operator, if index is less than props.toDoData.length-1, render a divider, else render nothing. This prevents the last todo having a deivider under it to make this look neater. Index is a new number generated with each todo? Not sure. */}
                     </React.Fragment>
                 ))}
             </List>
         </Paper>
     );
+    } else {
+    return null; //Return nothing at all if no todos present. 
+    }
 }
 
 export default ToDoList;

@@ -18,7 +18,7 @@ function ToDo({ task, completed, id, removeTodoFunc, toggleCompleteFunc, editTod
     const [isEditing, toggle] = useToggleState(false); //Imported at the top of this document. This const is to do with showing the edit form below. isEditing is set to false initially. Toggle is a function imported from useToggleState, here being used as the function that sets the value of isEditing. 
 
     return (
-        <ListItem>
+        <ListItem style ={{height: "64px" /*The height is 64px because this is the height the editing box is so the overall height of the todo does not change when the editing field is opened. */ }}>
             {isEditing ? (
                 <EditTodoForm editTodoFunc = {editTodoFunc /*Taken from above in the ToDo brackets, function is passed to the edit form component*/} id={id /*Passes the id imported in the brackets above. */} task={task} toggleEdit={toggle /*Remember toggle is imported through useToggleState*/} />
             ) : (//Ternary operator, if isEditing is true then show the editing options, if not, show the toDo details.
