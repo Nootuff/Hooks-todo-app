@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import useTodoState from "../hooks/useTodoState" //Import the functions from this file. 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import AppBar from '@mui/material/AppBar';
@@ -6,10 +7,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Grid from '@mui/material/Grid';
 import ToDoForm from "./ToDoForm";
 import ToDoList from "./ToDoList";
-import { v4 as uuidv4 } from 'uuid';
+
 
 function ToDoApp() {
-  const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]"); //Ternary operator, if there are todos present in localStorage then the value of this const is whatever they are, if not, then the value is an empty array. 
+  const starter = [{ id: 1, task: "Placeholder todo", completed: false }];//JSON.parse(window.localStorage.getItem("todos") || "[]"); Ternary operator, if there are todos present in localStorage then the value of this const is whatever they are, if not, then the value is an empty array. 
+
+  const {todos, addTodo, removeTodo, toggleComplete, editTodo} = useTodoState(starter); //Destructuring  is used here to extract all the functions from useTodoState. This const is an object. These functions are then used below. starter is being passed in as the argument to useTodoState 
 
   /*
   const initial = [
@@ -17,36 +20,11 @@ function ToDoApp() {
     { id: 2, task: "task 2", completed: true },
     { id: 3, task: "task 3", completed: false }
   ];
-*/
-  const [todos, setTodos] = useState(initialTodos); //The value of todos is set to the array in initial
 
-  useEffect(() => { //useEffect imported from react above in the first brackets. It runs any time a component renders meaning it will be saving the todos and keeping them up to date on localstorage. 
-window.localStorage.setItem("todos", JSON.stringify(todos)) //The value of todos is being turned from an object to a string and sent to localstorage. 
-  }, [todos]); //todos here means useEffect will only run when the todos value is updated?
 
-  const addTodo = (newText) => {
-    setTodos([...todos, { id: uuidv4(), task: newText, completed: false }]) //This function will overwrite and replace existing todos. 
-  }
-
-  const removeTodo = (todoId) => { //todoId is the .id value from the todo component you are activating this function from. 
-    //Filter out the removed todo. 
-    const updatedTodos = todos.filter((todo) => todo.id !== todoId) //create an array of todos where the id of the todo does not match the id that was passed in. This will filter out the one todo with the id that was passed in. 
-    setTodos(updatedTodos) //Call set setTodos with new updatedTodos array created above that has everything but the todo with the id . 
-  }
-
-  const toggleComplete = (todoId) => {
-    const updatedTodos = todos.map((todo) => //maps over all the todos 
-      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo//Map over current todos, check if the todo.id of the todo the map is looking at is equal to the id that was passed in, if they match, set that todo to be the same with all the same data but its completed value to be the opposite of what it was, like a toggle. If the ids dont match, return the regular todo as it is. 
-    );
-    setTodos(updatedTodos); //Set todos to be the updated modified array created above. 
-  };
-
-  const editTodo = (todoId, newTask) => { //This function operates very similarly to above. 
-    const updatedTodos = todos.map((todo) =>
-      todo.id === todoId ? { ...todo, task: newTask } : todo //Ternary operator 
-    );
-    setTodos(updatedTodos);
-  }
+  useEffect(() => { useEffect imported from react above in the first brackets. It runs any time a component renders meaning it will be saving the todos and keeping them up to date on localstorage. 
+window.localStorage.setItem("todos", JSON.stringify(todos)) The value of todos is being turned from an object to a string and sent to localstorage. 
+  }, [todos]); todos here means useEffect will only run when the todos value is updated? */
 
   return (
     <Paper style={{ /*Paper is a component from material ui imported above.*/
